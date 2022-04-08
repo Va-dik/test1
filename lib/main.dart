@@ -1,5 +1,8 @@
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:test_app/pages/splash_screen.dart';
 import 'package:test_app/widgets/tabs_screen.dart';
 
 void main() {
@@ -11,9 +14,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    SystemChrome.setPreferredOrientations([
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+      ]);
+    return MaterialApp(
       title: 'Test_app',
-      home: HomePage(),
+      home: AnimatedSplashScreen(splash: const SplashScreen(), nextScreen: const HomePage()),
     );
   }
 }
