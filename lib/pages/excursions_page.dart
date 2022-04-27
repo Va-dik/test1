@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:test_app/widgets/card_widget.dart';
+import 'package:test_app/models/excursion_model.dart';
+import 'package:test_app/widgets/excursion_card_widget.dart';
 
 class Excursions extends StatefulWidget {
   const Excursions({Key? key}) : super(key: key);
@@ -9,45 +10,48 @@ class Excursions extends StatefulWidget {
 }
 
 class _ExcursionsState extends State<Excursions> {
-  bool isPressed1 = false;
-  bool isPressed2 = false;
+  final List<Excursion> _excursions = [];
 
-  void markPressed1() {
-    setState(() {
-      isPressed1 = !isPressed1;
-    });
-  }
+  Future<bool> loadData() async {
+    await Future.delayed(const Duration(seconds: 1));
+    Excursion _excursion = Excursion(
+        title: "Something",
+        rating: 4.8,
+        assetsName: 'assets/images/excursions_images/first_image.png');
+    _excursions.add(_excursion);
+    _excursion.printData();
 
-  void markPressed2() {
-    setState(() {
-      isPressed2 = !isPressed2;
-    });
+    _excursion = Excursion(
+        title: 'Example',
+        rating: 4.2,
+        assetsName: 'assets/images/excursions_images/second_image.png');
+    _excursions.add(_excursion);
+    _excursion.printData();
+
+    return true;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        padding: const EdgeInsets.only(top: 27.75),
-        child: GridView(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              mainAxisExtent: 454,
-              mainAxisSpacing: 24,
-              crossAxisCount: 1,
-              childAspectRatio: 1.5,
-            ),
-            children: [
-              card(
-                  "Морская прогулка\nна рассвете",
-                  "assets/images/excursions_images/first_image.png",
-                  4.8,
-                  markPressed1,
-                  isPressed1, true),
-              card(
-                  "Трехдневный\nпоход",
-                  "assets/images/excursions_images/second_image.png",
-                  4.2,
-                  markPressed2,
-                  isPressed2, true),
-            ]));
+    return FutureBuilder(
+        future: loadData(),
+        builder: (context, snapshot) {
+          return snapshot.hasData
+              ? Container(
+                  padding: const EdgeInsets.only(top: 27.75),
+                  child: GridView.builder(
+                      itemCount: _excursions.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        mainAxisExtent: 454,
+                        mainAxisSpacing: 24,
+                        crossAxisCount: 1,
+                        childAspectRatio: 1.5,
+                      ),
+                      itemBuilder: (context, index) => ExcursionCard(
+                            excursion: _excursions[index],
+                          )))
+              : const Center(child: CircularProgressIndicator());
+        });
   }
 }
