@@ -12,71 +12,73 @@ class EventCard extends StatefulWidget {
 class _EventCardState extends State<EventCard> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-        decoration: const BoxDecoration(
-          color: Color.fromRGBO(150, 199, 249, 1),
-        ),
-        child: Stack(children: [
-          Column(children: [
-            Expanded(
-              child: ClipRect(
-                  child: Image(
+    return Padding(
+      padding: const EdgeInsets.all(5),
+      child: Container(
+          height: MediaQuery.of(context).size.height * 0.7,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
+            color: Colors.black,
+            image: DecorationImage(
                 image: AssetImage(widget.event.assetsName),
-                width: double.infinity,
-                alignment: Alignment.bottomLeft,
-                fit: BoxFit.fill,
-              )),
-            ),
-          ]),
-          Align(
-              alignment: const Alignment(-0.8, -0.9),
-              child: Text(
-                widget.event.title,
-                style: const TextStyle(
-                    fontFamily: "Nexa-Bold",
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold),
-              )),
-          Align(
-            alignment: const Alignment(0.75, -1.1),
-            child: IconButton(
-                onPressed: () {
-                  setState(() {
-                    widget.event.favorite;
-                  });
-                },
-                icon: Icon(
-                  widget.event.onPressed
-                      ? Icons.bookmark_outlined
-                      : Icons.bookmark_border_rounded,
-                  color: Colors.white,
-                  size: 60,
-                )),
+                fit: BoxFit.fill),
           ),
-          Align(
-              alignment: const Alignment(0.6, 0.91),
-              child: TextButton(
-                  child: const Text(
-                    "Подробнее",
-                    style: TextStyle(
-                        fontFamily: "Nexa-Bold",
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                        color: Colors.white),
-                  ),
-                  onPressed: () {})),
-          Align(
-              alignment: const Alignment(0.9, 0.925),
-              child: IconButton(
-                splashRadius: 0.1,
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.arrow_forward,
-                  size: 30,
-                  color: Colors.white,
+          child: Padding(
+            padding: const EdgeInsets.all(17),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      widget.event.title,
+                      style: const TextStyle(
+                          fontFamily: "Nexa-Bold",
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    IconButton(
+                        onPressed: () {
+                          setState(() {
+                            widget.event.favorite;
+                          });
+                        },
+                        icon: Icon(
+                          widget.event.onPressed
+                              ? Icons.bookmark_outlined
+                              : Icons.bookmark_border_rounded,
+                          color: Colors.white,
+                          size: 60,
+                        )),
+                  ],
                 ),
-              ))
-        ]));
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TextButton.icon(
+                        style: TextButton.styleFrom(),
+                        label: const Icon(
+                          Icons.arrow_forward,
+                          size: 30,
+                          color: Colors.white,
+                        ),
+                        icon: const Text(
+                          "Подробнее",
+                          style: TextStyle(
+                              fontFamily: "Nexa-Bold",
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                              color: Colors.white),
+                        ),
+                        onPressed: () {})
+                  ],
+                )
+              ],
+            ),
+          )),
+    );
   }
 }

@@ -11,8 +11,4 @@ class Event {
 
   Event(
       {required this.title, required this.assetsName});
-
-  printData() {
-    print('Title: $title');
-  }
 }

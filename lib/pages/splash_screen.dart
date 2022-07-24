@@ -10,32 +10,29 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Align(
+    return Scaffold(
+      backgroundColor: const Color.fromARGB(235, 245, 245, 245),
+      body: Center(
+        child: Container(
           alignment: Alignment.center,
-          child: Container(
-            alignment: Alignment.center,
-            height: 200,
-            width: 300,
-            decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                    colors: [Colors.white, Colors.grey],
-                    begin: Alignment(-1, -1),
-                    end: Alignment(1, 1))),
+          height: 200,
+          width: 300,
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.white, Colors.grey],
+              begin: Alignment(-1, -1),
+              end: Alignment(1, 1),
+            ),
           ),
-        ),
-        const Align(
-          alignment: Alignment(0, 0),
-          child: Text(
-            "Splash Screen",
+          child: const Text(
+            "*Application*",
             style: TextStyle(
                 fontSize: 30,
                 fontWeight: FontWeight.bold,
                 color: Colors.white60),
           ),
         ),
-      ],
+      ),
     );
   }
 }

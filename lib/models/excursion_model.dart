@@ -12,8 +12,4 @@ class Excursion {
 
   Excursion(
       {required this.title, required this.rating, required this.assetsName});
-
-  printData() {
-    print('Title: $title\nRating: $rating');
-  }
 }
